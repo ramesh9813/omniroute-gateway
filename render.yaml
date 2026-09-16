@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: omniroute-gateway
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: HOSTNAME
+        value: 0.0.0.0
+      - key: DATA_DIR
+        value: /opt/render/project/data
+      - key: REQUIRE_API_KEY
+        value: "true"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: API_KEY_SECRET
+        generateValue: true
+      - key: STORAGE_ENCRYPTION_KEY
+        generateValue: true
+      - key: INITIAL_PASSWORD
+        generateValue: true
+      - key: OMNIROUTE_WS_BRIDGE_SECRET
+        generateValue: true
