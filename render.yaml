@@ -4,7 +4,7 @@ services:
     runtime: node
     plan: free
     region: oregon
-    buildCommand: npm install && npm run build
+    buildCommand: npm install --include=dev && npm run build
     startCommand: npm run start
     healthCheckPath: /healthz
     envVars:
@@ -16,6 +16,16 @@ services:
         value: /opt/render/project/data
       - key: REQUIRE_API_KEY
         value: "true"
+      - key: OMNIROUTE_BUILD_BACKEND_ONLY
+        value: "1"
+      - key: NODE_OPTIONS
+        value: "--max-old-space-size=1536"
+      - key: CIRCLE_NODE_TOTAL
+        value: "1"
+      - key: OMNIROUTE_MEMORY_MB
+        value: "512"
+      - key: NEXT_PUBLIC_BASE_URL
+        value: "https://omniroute-gateway-vcr9.onrender.com"
       - key: JWT_SECRET
         generateValue: true
       - key: API_KEY_SECRET
